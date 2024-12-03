@@ -21,15 +21,14 @@
       </div>
     </form>
   </div>
-
-  {{#if comments.length}}
-    <div class="col-md-6 comment-list">
+  <div class="col-md-6 comment-list">
+    {{#if comments.length}}
       <h3>Current Comments:</h3>
-
       {{#each comments as |comment|}}
         <div class="row mb-2">
           <div class="col-md-8">
             <h4><a href="/comment/{{comment.id}}">{{comment.content}}</a></h4>
+            <h6>Comment by: {{comment.user.name}}</h6>
           </div>
           <div class="col-md-4">
             <button
@@ -39,8 +38,8 @@
           </div>
         </div>
       {{/each}}
-    </div>
-  {{/if}}
+    {{/if}}
+  </div>
 </div>
 
-<script src="./js/comment.js"></script>
+<script src="/js/comment.js"></script>

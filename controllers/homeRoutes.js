@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Blog, User } = require("../models");
+const { Blog, User, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -35,16 +35,27 @@ router.get("/blog/:id", async (req, res) => {
           model: User,
           attributes: ["name"],
         },
+        {
+          model: Comment,
+          attributes: ["content", "id", "date_created", "user_id"],
+          include: [
+            {
+              model: User,
+              attributes: ["name"],
+            },
+          ],
+        },
       ],
     });
 
     const blog = blogData.get({ plain: true });
-
+    console.log(blog);
     res.render("blog", {
       ...blog,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
